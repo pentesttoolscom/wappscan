@@ -1,12 +1,11 @@
-#!/usr/bin/env python3
-
 """Functions for CLI interaction"""
 
 from uuid import UUID
 
 import typer
-from core import get_scan_info
 from rich import print as rich_print
+
+from wappscan.core import get_scan_info
 
 app = typer.Typer(no_args_is_help=True)
 
@@ -21,7 +20,3 @@ def get(scan_id: UUID):
 def scan(target: str):
     """Run a scan on a given target"""
     pass
-
-
-if __name__ == "__main__":
-    app()
