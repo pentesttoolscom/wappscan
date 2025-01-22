@@ -8,6 +8,8 @@ from uuid import UUID
 
 import requests
 
+from wappscan.exceptions import StartScanException
+
 
 def get_scan_info(scan_id: UUID) -> dict:
     """Get scan by ID"""
@@ -31,5 +33,9 @@ def run_scan(target: str) -> dict:
         timeout=3,
         json={"target": parsed_target},
     )
+
+    if not res.ok:
+        error_msg = res.json()["detail"][0]["msg"]
+        raise StartScanException(res.status_code, error_msg)
 
     return res.json()
