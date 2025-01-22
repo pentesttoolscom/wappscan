@@ -14,6 +14,7 @@ from rich.progress import (
     TextColumn,
     TimeElapsedColumn,
 )
+from rich.prompt import Prompt
 
 from wappscan.api import get_scan_info, run_scan
 
@@ -76,9 +77,19 @@ def output_scan(scan: dict, output_file: str | None):
     If `output_file` is provided, write the scan to `output_file`. Else, print it to the console
     """
 
-    if output_file:
-        with open(output_file, "w+", encoding="UTF-8") as f:
-            json.dump(scan, f, indent=4)
-        print(f"Scan result was written to {output_file}.")
-    else:
-        print_json(json.dumps(scan))
+    while True:
+        if not output_file:
+            print_json(json.dumps(scan))
+            return
+
+        try:
+            with open(output_file, "w+", encoding="UTF-8") as f:
+                json.dump(scan, f, indent=4)
+            print(f"Scan result was written to {output_file}.")
+            return
+        except PermissionError as e:
+            print(f"[red]Could not open file for writing: {e.strerror}.[/red]")
+            output_file = Prompt.ask(
+                "Enter another file name for writing"
+                " (or leave empty to write the scan result to the console)"
+            )
