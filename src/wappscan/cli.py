@@ -21,16 +21,23 @@ app = typer.Typer(no_args_is_help=True)
 
 
 @app.command()
-def get(scan_id: UUID):
+def get(
+    scan_id: UUID,
+    output_file: Annotated[
+        str | None, typer.Option(help="File to write scan result to")
+    ] = None,
+):
     """Get scan by ID"""
-    scan_result = get_scan_info(scan_id)
-    print_json(json.dumps(scan_result))
+    scan = get_scan_info(scan_id)
+    output_scan(scan, output_file)
 
 
 @app.command()
 def run(
     target: str,
-    output_file: Annotated[str, typer.Option(help="File to write scan result to")] = "",
+    output_file: Annotated[
+        str | None, typer.Option(help="File to write scan result to")
+    ] = None,
 ):
     """Run a scan on a given target"""
 
@@ -60,6 +67,14 @@ def run(
             if scan["status"] == "finished":
                 break
             time.sleep(2)
+
+    output_scan(scan, output_file)
+
+
+def output_scan(scan: dict, output_file: str | None):
+    """
+    If `output_file` is provided, write the scan to `output_file`. Else, print it to the console
+    """
 
     if output_file:
         with open(output_file, "w+", encoding="UTF-8") as f:
