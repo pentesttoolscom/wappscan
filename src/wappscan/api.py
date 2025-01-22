@@ -1,4 +1,8 @@
-"""Core logic"""
+"""
+Client for the WappScan.io REST API.
+
+API Reference: https://wappscan.io/api-reference
+"""
 
 from uuid import UUID
 

@@ -1,4 +1,4 @@
-"""Functions for CLI interaction"""
+"""The CLI module for WappScan.io."""
 
 import json
 import time
@@ -15,7 +15,7 @@ from rich.progress import (
     TimeElapsedColumn,
 )
 
-from wappscan.core import get_scan_info, run_scan
+from wappscan.api import get_scan_info, run_scan
 
 app = typer.Typer(no_args_is_help=True)
 
