@@ -22,7 +22,7 @@ from wappscan.exceptions import StartScanException
 app = typer.Typer(no_args_is_help=True)
 
 
-@app.command()
+@app.command(no_args_is_help=True)
 def get(
     scan_id: UUID,
     output_file: Annotated[
@@ -34,7 +34,7 @@ def get(
     output_scan(scan, output_file)
 
 
-@app.command()
+@app.command(no_args_is_help=True)
 def run(
     target: str,
     output_file: Annotated[
