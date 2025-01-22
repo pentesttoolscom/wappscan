@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "wappscan"
-version = "0.0.7"
+version = "0.0.8"
 description = "Scan web apps from your code."
 readme = "README.md"
 authors = [
