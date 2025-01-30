@@ -4,14 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "wappscan"
-version = "0.0.8"
+version = "0.0.10"
 description = "Scan web apps from your code."
 readme = "README.md"
-authors = [
-    { name = "Pentest-Tools.com", email = "contact@pentest-tools.com" }
-]
+authors = [{ name = "Pentest-Tools.com", email = "contact@pentest-tools.com" }]
 license = { file = "LICENSE" }
-dependencies = []
+dependencies = ["requests", "rich", "typer"]
 requires-python = ">=3.9"
 
 [project.scripts]
